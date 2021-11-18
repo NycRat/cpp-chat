@@ -1,8 +1,7 @@
 #include <iostream>
 #include <SFML/Network.hpp>
-#include <conio.h>
 #include <thread>
-
+#include <conio.h>
 
 sf::IpAddress ip = sf::IpAddress::getLocalAddress();
 sf::IpAddress tempIp;
@@ -13,9 +12,9 @@ size_t received;
 unsigned short tempPort;
 unsigned short port;
 std::string sIp;
-std::string name;
 char buffer[2000];
 char c;
+std::string name;
 
 
 void receiveData () {
@@ -35,16 +34,14 @@ int main () {
         sIp+=c;
         std::cout << "*";
     }
-    ip = sIp;
-    std::cout << "\nEnter Port: ";
-    std::cin >> port;
-    socket.bind(port, ip);
-    std::cout << "Enter Name: ";
-    std::cin >> name;
-    serverIp = text;
-    text = "";
-
+    serverIp = sIp;
+    std::cout << "\nEnter Name: ";
+    socket.bind(socket.AnyPort, ip);
     std::thread receiveThread(receiveData);
+
+    // std::cin.ignore();
+    std::getline(std::cin, name);
+    socket.send(name.c_str(), name.length()+1, serverIp, 2000);
 
     while (true) {
         std::getline(std::cin, text);
