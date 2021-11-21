@@ -19,7 +19,9 @@ private:
 
 public:
     Client();
-    ~Client() = default;
+    ~Client() {
+        this->disconnect();
+    };
     // refactor the way it receives messages
     void sendMessage (std::string message);
     void connectToServer (sf::IpAddress serverIp);

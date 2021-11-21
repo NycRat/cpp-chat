@@ -69,12 +69,16 @@ void ClientWindow::run () {
                         }
                         break;
                     case sf::Keyboard::BackSpace:
-                        text.pop_back();
+                        if (text.length() > 0)
+                            text.pop_back();
                         break;
                     case sf::Keyboard::Escape:
                         close();
                         break;
                 }
+            }
+            if (ev.type == sf::Event::MouseWheelScrolled) {
+                chatBox.moveText(ev.mouseWheelScroll.delta);
             }
         }
         if (client.receiveMessages()) {
@@ -92,7 +96,6 @@ void ClientWindow::run () {
 
         render();
     }
-    client.disconnect();
 }
 
 void ClientWindow::render () {

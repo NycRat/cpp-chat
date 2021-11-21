@@ -37,7 +37,7 @@ int main () {
         if (connectedUsers.count(tempPort) == 0 && tempPort != 0) { // New Connected User
             std::cout << "NEW CONNECTION\nIP: " << tempIp << "\nPORT: " << tempPort << "\n" << "NAME: " << temp << "\n";
             // socket.send("Connected Users:\n", 18, tempIp, tempPort);
-            sendPacket << "New User Connected: " << temp;
+            sendPacket << "New User Connected" << temp;
             for (auto id : connectedUsers) {
                 if (id.first != tempPort) // || id.second != tempIp)
                     socket.send(sendPacket, id.second->ip, id.first);
